@@ -1,0 +1,8 @@
+<% message = chat_room.messages.build %>
+
+<div class="form-group msg-form">
+  <%= form_with(model: [chat_room, message], local: false, class: "d-flex", id: "message-form") do |f| %>
+    <%= f.text_field :content, id: 'chat-text', class: "form-control msg-content", autocomplete: 'off' %>
+    <%= f.submit data: { disable_with: false }, class: "btn btn-primary" %>
+  <% end %>
+</div>

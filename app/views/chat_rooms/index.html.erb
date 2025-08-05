@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-2">
+    <h5> Hi <%= @current_user.username %> </h5>
+    <h4> Users </h4>
+    <div>
+      <%= turbo_stream_from "users" %>
+      <div id="users">
+        <%= render @users %>
+      </div>
+    </div>
+    <h4> Chat rooms </h4>
+    <%= render partial: "layouts/new_chat_room_form" %>
+    <div>
+      <%= turbo_stream_from "chat_rooms" %>
+      <div id="chat_rooms">
+        <%= render @chat_rooms %>
+      </div>
+    </div>
+  </div>
+    <div class="col-messages chat-area">
+        <div class="col-md-10 bg-dark">
+            <% if @single_chat_room %>
+                <h4 class="text-center"> <%= @single_chat_room.name %> </h4>
+            <% end %> 
+        </div>
+
+        <%= turbo_stream_from @single_chat_room %>
+
+        <div id="chat-messages" class="chat-messages">
+            <%= render @messages %>
+        </div>
+        <%= render partial: 'layouts/new_message_form', locals: { chat_room: @single_chat_room } if @single_chat_room %>
+    </div>
+</div>
